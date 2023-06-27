@@ -35,8 +35,18 @@ jobs:
           -v "$GITHUB_WORKSPACE/pages_repo/site.toml:/app/loconotion/site.toml" \
           loconotion "site.toml"
         working-directory: loconotion
+        
+      - name: Push to GitHub pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          GIT_DEPLOY_DIR=dist/site \
+          GIT_DEPLOY_BRANCH=gh-pages \
+          GIT_DEPLOY_REPO="https://${{ github.token }}@github.com/${{ github.repository }}.git" ./deploy.sh
+        working-directory: pages_repo
 
-      - name: Add Google Analytics tracking code
+            - name: Add Google Analytics tracking code
         run: |
           echo '<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_ANALYTICS_ID"></script>
           <script>
@@ -48,14 +58,4 @@ jobs:
           </script>' >> $GITHUB_WORKSPACE/pages_repo/dist/index.html
           
           sed -i 's/YOUR_ANALYTICS_ID/UA-275137883-1/g' $GITHUB_WORKSPACE/pages_repo/dist/index.html
-        working-directory: pages_repo
-      
-      - name: Push to GitHub pages
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          GIT_DEPLOY_DIR=dist/site \
-          GIT_DEPLOY_BRANCH=gh-pages \
-          GIT_DEPLOY_REPO="https://${{ github.token }}@github.com/${{ github.repository }}.git" ./deploy.sh
         working-directory: pages_repo
