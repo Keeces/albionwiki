@@ -35,7 +35,7 @@ jobs:
           -v "$GITHUB_WORKSPACE/pages_repo/site.toml:/app/loconotion/site.toml" \
           loconotion "site.toml"
         working-directory: loconotion
-        
+
       - name: Push to GitHub pages
         run: |
           git config --global user.name "github-actions[bot]"
@@ -46,7 +46,7 @@ jobs:
           GIT_DEPLOY_REPO="https://${{ github.token }}@github.com/${{ github.repository }}.git" ./deploy.sh
         working-directory: pages_repo
 
-            - name: Add Google Analytics tracking code
+        - name: Add Google Analytics tracking code
         run: |
           echo '<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_ANALYTICS_ID"></script>
           <script>
