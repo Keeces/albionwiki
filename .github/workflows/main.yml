@@ -35,6 +35,21 @@ jobs:
           -v "$GITHUB_WORKSPACE/pages_repo/site.toml:/app/loconotion/site.toml" \
           loconotion "site.toml"
         working-directory: loconotion
+
+      - name: Add Google Analytics tracking code
+        run: |
+          echo '<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_ANALYTICS_ID"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+
+            gtag("config", "YOUR_ANALYTICS_ID");
+          </script>' >> $GITHUB_WORKSPACE/pages_repo/dist/index.html
+          
+          sed -i 's/YOUR_ANALYTICS_ID/UA-275137883-1/g' $GITHUB_WORKSPACE/pages_repo/dist/index.html
+        working-directory: pages_repo
+      
       - name: Push to GitHub pages
         run: |
           git config --global user.name "github-actions[bot]"
