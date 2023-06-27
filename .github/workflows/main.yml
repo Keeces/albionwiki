@@ -45,15 +45,3 @@ jobs:
           GIT_DEPLOY_BRANCH=gh-pages \
           GIT_DEPLOY_REPO="https://${{ github.token }}@github.com/${{ github.repository }}.git" ./deploy.sh
         working-directory: pages_repo
-
-      - name: Add Google Analytics tracking code
-        run: |
-          echo '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-275137883-1"></script>
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag("js", new Date());
-
-            gtag("config", "UA-275137883-1");
-          </script>' >> $GITHUB_WORKSPACE/pages_repo/dist/index.html
-        working-directory: pages_repo
