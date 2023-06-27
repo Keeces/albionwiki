@@ -52,12 +52,12 @@ jobs:
           git checkout gh-pages
           sed -i -e 's/^\(.\{42\}\)/\1\n/' index.html
           sed -i '1a <!-- Google tag (gtag.js) -->' index.html
-          sed -i '2a <script async src="https://www.googletagmanager.com/gtag/js?id=UA-275137883-1"></script>' index.html
+          sed -i '2a <script async src="https://www.googletagmanager.com/gtag/js?id=G-230KNDHBGF"></script>' index.html
           sed -i '3a <script>' index.html
           sed -i '4a   window.dataLayer = window.dataLayer || [];' index.html
           sed -i '5a   function gtag(){dataLayer.push(arguments);}' index.html
           sed -i '6a   gtag('js', new Date());' index.html
-          sed -i '7a   gtag('config', 'UA-275137883-1');' index.html
+          sed -i '7a   gtag('config', 'G-230KNDHBGF');' index.html
           sed -i '8a </script>' index.html
           git add .
           git commit -m "add analytics tag"
